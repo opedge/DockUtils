@@ -28,9 +28,9 @@ let dockAX = AXUIElementCreateApplication(dockApp.processIdentifier)
 let applicationDockItems = dockAX.children?.first?.children?.compactMap(ApplicationDockItem.init) ?? []
 let itemsWithNotifications = applicationDockItems.filter { $0.badgeValue != nil }
 
-let output = itemsWithNotifications.isEmpty ? "No notifications" : itemsWithNotifications
+let output = itemsWithNotifications.isEmpty ? "" : itemsWithNotifications
   .map { "\($0.title): \($0.badgeValue!)" }
-  .joined(separator: "  ")
+  .joined(separator: "\n")
 
 print(output)
 exit(0)
