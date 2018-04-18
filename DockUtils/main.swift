@@ -19,13 +19,13 @@ guard AXIsProcessTrustedWithOptions(options) else {
   exit(1)
 }
 
-guard let dockApp = NSWorkspace.shared().dockApplication else {
+guard let dockApp = NSWorkspace.shared.dockApplication else {
   print("Dock is not running.")
   exit(1)
 }
 
 let dockAX = AXUIElementCreateApplication(dockApp.processIdentifier)
-let applicationDockItems = dockAX.children?.first?.children?.flatMap(ApplicationDockItem.init) ?? []
+let applicationDockItems = dockAX.children?.first?.children?.compactMap(ApplicationDockItem.init) ?? []
 let itemsWithNotifications = applicationDockItems.filter { $0.badgeValue != nil }
 
 let output = itemsWithNotifications.isEmpty ? "No notifications" : itemsWithNotifications
